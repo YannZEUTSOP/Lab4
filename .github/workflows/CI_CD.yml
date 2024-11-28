@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-test-dev:
-    if: github.ref == 'refs/heads/dev'
+    if: github.ref == 'refs/heads/dev'  # This job runs only on dev branch
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -54,8 +54,8 @@ jobs:
             });
 
   build-test-deploy-main:
-    needs: build-and-test-dev
-    if: github.ref == 'refs/heads/main' && success()  # Trigger only if the push is to main and previous job was successful
+    needs: build-and-test-dev  # This job depends on build-and-test-dev job
+    if: github.ref == 'refs/heads/main' && success()  # This job runs only on main branch after dev job success
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
